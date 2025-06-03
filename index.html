@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherFlow - Beautiful Weather App</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%234facfe;stop-opacity:1' /><stop offset='100%' style='stop-color:%2300f2fe;stop-opacity:1' /></linearGradient></defs><circle cx='30' cy='35' r='15' fill='%23ffd700'/><path d='M45 45 Q55 35 65 45 Q75 35 85 45 Q75 55 65 55 Q55 65 45 55 Q35 55 45 45' fill='url(%23grad)'/></svg>">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-cloud-sun"></i>
+                <span>WeatherFlow</span>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle" class="theme-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="cityInput" placeholder="Search for a city..." autocomplete="off">
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <button id="locationBtn" class="location-btn">
+                    <i class="fas fa-location-dot"></i>
+                    <span>Use My Location</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner hidden">
+            <div class="spinner"></div>
+            <p>Getting weather data...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message hidden">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p id="errorText">Something went wrong. Please try again.</p>
+        </div>
+
+        <!-- Main Weather Display -->
+        <main id="weatherDisplay" class="weather-display hidden">
+            <!-- Current Weather Card -->
+            <div class="current-weather-card">
+                <div class="weather-header">
+                    <div class="location-info">
+                        <h1 id="cityName">New York</h1>
+                        <p id="countryName">United States</p>
+                        <p id="currentDate"></p>
+                    </div>
+                    <div class="weather-icon-main">
+                        <img id="weatherIcon" src="" alt="Weather Icon">
+                    </div>
+                </div>
+                
+                <div class="temperature-section">
+                    <div class="main-temp">
+                        <span id="temperature">22</span>
+                        <span class="temp-unit">°C</span>
+                    </div>
+                    <div class="temp-details">
+                        <p id="weatherDescription">Partly Cloudy</p>
+                        <div class="feels-like">
+                            <span>Feels like </span>
+                            <span id="feelsLike">25°C</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weather-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">Visibility</span>
+                            <span id="visibility" class="stat-value">10 km</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-droplet"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">Humidity</span>
+                            <span id="humidity" class="stat-value">65%</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-wind"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">Wind Speed</span>
+                            <span id="windSpeed" class="stat-value">12 km/h</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-gauge"></i>
+                        <div class="stat-info">
+                            <span class="stat-label">Pressure</span>
+                            <span id="pressure" class="stat-value">1013 hPa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info Cards -->
+            <div class="info-cards">
+                <div class="info-card sunrise-sunset">
+                    <h3><i class="fas fa-sun"></i> Sun Times</h3>
+                    <div class="sun-times">
+                        <div class="sun-time">
+                            <i class="fas fa-sunrise"></i>
+                            <div>
+                                <span class="time-label">Sunrise</span>
+                                <span id="sunrise" class="time-value">06:30 AM</span>
+                            </div>
+                        </div>
+                        <div class="sun-time">
+                            <i class="fas fa-sunset"></i>
+                            <div>
+                                <span class="time-label">Sunset</span>
+                                <span id="sunset" class="time-value">07:45 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card uv-index">
+                    <h3><i class="fas fa-sun"></i> UV Index</h3>
+                    <div class="uv-display">
+                        <div id="uvValue" class="uv-value">5</div>
+                        <div id="uvLevel" class="uv-level">Moderate</div>
+                        <div class="uv-bar">
+                            <div id="uvProgress" class="uv-progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5-Day Forecast -->
+            <div class="forecast-section">
+                <h2><i class="fas fa-calendar-days"></i> 5-Day Forecast</h2>
+                <div id="forecastContainer" class="forecast-container">
+                    <!-- Forecast items will be dynamically generated -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 WeatherFlow. by Hamzeh Hijazi</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
