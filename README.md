@@ -2,7 +2,7 @@
 
 A stunning, modern weather application with a completely unique design featuring glassmorphism effects, smooth animations, and comprehensive weather data.
 
-![WeatherFlow Preview](https://via.placeholder.com/800x400/667eea/ffffff?text=WeatherFlow+Weather+App)
+*Made By Hamzeh Hijazi 🤝*
 
 ## ✨ Features
 
@@ -77,7 +77,7 @@ weather-app/
 ├── index.html          # Main HTML structure
 ├── styles.css          # Complete CSS with animations
 ├── script.js           # JavaScript functionality
-└── README.md          # This file
+└── README.md           # This file
 ```
 
 ## 🌟 API Information
@@ -221,7 +221,7 @@ If you encounter any issues:
 
 ---
 
-**Enjoy your beautiful weather app! 🌈**
+**Enjoy your beautiful weather app! **
 
 *Made with ❤️ using vanilla JavaScript, CSS3, and the completely free Open-Meteo API*
 
